@@ -1,0 +1,31 @@
+*** Settings ***
+Suite Setup    Login to OpenStack And Start Creating Instances
+Suite Teardown    Close All Browsers
+Test Template    Flavor Values
+Resource    ./common/assets/secrets.txt
+Resource    ./common/assets/resource.txt
+Resource    local_resource.txt
+Library    NovaClient
+Library    OperatingSystem
+
+*** Variables ***
+
+*** Test Cases ***    Flavor Name    Id    Vcpus   Root Disk    Ephemeral Disk    Total Disk    RAM
+flavor m1.tiny        m1.tiny        0     1       10           0                 10            1,024
+flavor m1.small       m1.small       1     1       10           0                 10            2,048
+flavor m1.medium      m1.medium      2     2       20           0                 20            4,096
+flavor m1.large       m1.large       3     4       40           0                 40            8,192
+flavor m1.x-large     m1.x-large     4     8       80           0                 80            16,384
+
+
+*** Keywords ***
+Flavor Values
+    [Arguments]    ${name}    ${id}    ${vcpus}    ${disk}    ${ephemeral}    ${disk_total}    ${ram}
+    Select From List By Index    id=id_flavor    ${id}
+    Element Should Contain    id=flavor_name    ${name}
+    Element Should Contain    id=flavor_vcpus    ${vcpus}
+    Element Should Contain    id=flavor_disk    ${disk}
+    Element Should Contain    id=flavor_ephemeral    ${ephemeral}
+    Element Should Contain    id=flavor_disk_total    ${disk_total}
+    Element Should Contain    id=flavor_ram    ${ram}
+

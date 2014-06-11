@@ -1,0 +1,37 @@
+*** Settings ***
+
+*** Variables ***
+${USER}    ${VALID_USER}
+${PASSWORD}    ${VALID_PASSWORD}
+
+*** Keywords ***
+Login to OpenStack
+    Set Environment Variable    OS_USERNAME    ${OS_USERNAME}
+    Set Environment Variable    OS_PASSWORD    ${OS_PASSWORD}
+    Set Environment Variable    OS_TENANT_NAME    ${OS_TENANT_NAME}
+    Set Environment Variable    OS_TENANT_ID    ${OS_TENANT_ID}
+    Set Environment Variable    OS_AUTH_URL    ${OS_AUTH_URL}
+    Open Browser    ${OPENSTACK_URL}    ${BROWSER}
+    Input Text    id=id_username    ${USER}
+    Set Log Level    NONE
+    Input Text    id=id_password    ${PASSWORD}
+    Set Log Level    DEBUG
+    Press Key     id=id_password     \\13
+    Wait Until Page Contains    ${USER}
+Login to OpenStack And Start Creating Instances
+    Set Environment Variable    OS_USERNAME    ${OS_USERNAME}
+    Set Environment Variable    OS_PASSWORD    ${OS_PASSWORD}
+    Set Environment Variable    OS_TENANT_NAME    ${OS_TENANT_NAME}
+    Set Environment Variable    OS_TENANT_ID    ${OS_TENANT_ID}
+    Set Environment Variable    OS_AUTH_URL    ${OS_AUTH_URL}
+    Open Browser    ${OPENSTACK_URL}    ${BROWSER}
+    Input Text    id=id_username    ${USER}
+    Set Log Level    NONE
+    Input Text    id=id_password    ${PASSWORD}
+    Set Log Level    DEBUG
+    Press Key     id=id_password     \\13
+    Wait Until Page Contains    ${USER}
+    Click Element    link=Instances
+    Wait Until Page Contains    Launch Instance
+    Click Element    id=instances__action_launch
+    Wait Until Page Contains    Specify the details

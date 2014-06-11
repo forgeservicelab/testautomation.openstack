@@ -1,0 +1,55 @@
+*** Settings ***
+Suite Setup    Login to OpenStack
+Suite Teardown    Close All Browsers
+Resource    ./common/assets/secrets.txt
+Resource    ./common/assets/resource.txt
+Resource    local_resource.txt
+Library    NovaClient
+Library    OperatingSystem
+
+*** Variables ***
+${cpus}    0 
+
+*** Test Cases ***
+Security Groups from Nova
+    [Tags]    noncritical
+    ${security_groups_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[4].getElementsByTagName("span")
+    ${security_groups_from_nova}    totalFloatingIpsUsed
+    Should Be Equal    ${security_groups_summary}    ${security_groups_from_nova}    
+Floating IPs from Nova
+    [Tags]    noncritical
+    ${floating_ips_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[3].getElementsByTagName("span")
+    ${floating_ips_from_nova}    totalFloatingIpsUsed
+    Should Be Equal    ${floating_ips_summary}    ${floating_ips_from_nova}
+RAM Usage Verify from Nova
+    [Tags]    critical
+    ${instances}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[0].getElementsByTagName("span")
+    ${mem_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[2].getElementsByTagName("span")
+    ${instances}     Evaluate    ${instances}   
+    ${mem_summary}    Fetch From Left    ${mem_summary}    ${SPACE}
+    ${mem_summary}    Evaluate    ${mem_summary}
+    ${mem_from_nova}    totalRAMUserInGB 
+    Should Be Equal    ${mem_summary}    ${mem_from_nova}
+Instance Usage Verify from Nova
+    [Tags]    critical
+    ${instances_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[0].getElementsByTagName("span")
+    ${instances_from_nova}    totalInstancesUsed
+    Should Be Equal    ${instances_summary}    ${instances_from_nova}
+VCPUs Usage Verify from Horizon
+    [Tags]    critical
+    ${instances}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[0].getElementsByTagName("span")
+    ${vcpus_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[1].getElementsByTagName("span")
+    ${instances}     Evaluate    ${instances}   
+    ${vcpus_summary}    Evaluate    ${vcpus_summary}
+    :FOR    ${i}    IN RANGE    ${instances}
+    \    ${j}    Evaluate    3 + ${i}
+    \    ${temp}    Get Table Cell   project_usage   ${j}    2
+    \    ${cpus}    Evaluate    ${temp} + ${cpus}
+    Should Be Equal    ${vcpus_summary}    ${cpus}
+VCPUs Usage Verify from Nova
+    [Tags]    critical
+    ${vcpus_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[1].getElementsByTagName("span")
+    ${vcpus_from_nova}    totalCoresUsed
+    Should Be Equal    ${vcpus_summary}    ${vcpus_from_nova}
+
+*** Keywords ***
