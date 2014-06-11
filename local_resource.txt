@@ -7,7 +7,9 @@ ${PASSWORD}    ${VALID_PASSWORD}
 *** Keywords ***
 Login to OpenStack
     Set Environment Variable    OS_USERNAME    ${OS_USERNAME}
+    Set Log Level    NONE
     Set Environment Variable    OS_PASSWORD    ${OS_PASSWORD}
+    Set Log Level    DEBUG
     Set Environment Variable    OS_TENANT_NAME    ${OS_TENANT_NAME}
     Set Environment Variable    OS_TENANT_ID    ${OS_TENANT_ID}
     Set Environment Variable    OS_AUTH_URL    ${OS_AUTH_URL}
@@ -20,7 +22,9 @@ Login to OpenStack
     Wait Until Page Contains    ${USER}
 Login to OpenStack And Start Creating Instances
     Set Environment Variable    OS_USERNAME    ${OS_USERNAME}
+    Set Log Level    NONE
     Set Environment Variable    OS_PASSWORD    ${OS_PASSWORD}
+    Set Log Level    DEBUG
     Set Environment Variable    OS_TENANT_NAME    ${OS_TENANT_NAME}
     Set Environment Variable    OS_TENANT_ID    ${OS_TENANT_ID}
     Set Environment Variable    OS_AUTH_URL    ${OS_AUTH_URL}
