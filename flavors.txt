@@ -1,3 +1,5 @@
+Documentation   Check that all the flavors contains the right values 
+
 *** Settings ***
 Suite Setup    Login to OpenStack And Start Creating Instances
 Suite Teardown    Close All Browsers

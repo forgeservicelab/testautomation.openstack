@@ -1,3 +1,5 @@
+Documentation   Check that the flavor list contains the right texts
+
 *** Settings ***
 Suite Setup    Login to OpenStack And Start Creating Instances
 Suite Teardown    Close All Browsers
