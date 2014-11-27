@@ -14,7 +14,7 @@ Library    Collections
 ${flavorsCount}    8
 
 *** Test Cases ***
-Flavor count equals 5
+Flavor count equals 8, 5 normal plus 3 hadoop
     ${vals}    Get List Items    id=id_flavor
     ${len}    size    ${vals}
     ${flavorsCount}    Evaluate    ${flavorsCount}
