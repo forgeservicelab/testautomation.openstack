@@ -1,7 +1,6 @@
-Documentation   Check that all the flavors contains the right values 
-
 *** Settings ***
 Suite Setup    Login to OpenStack And Start Creating Instances
+Documentation   Check that all the flavors contains the right values 
 Suite Teardown    Close All Browsers
 Test Template    Flavor Values
 Resource    ./common/assets/secrets.txt
@@ -18,6 +17,9 @@ flavor m1.small       m1.small       1     1       10           0               
 flavor m1.medium      m1.medium      2     2       20           0                 20            4,096
 flavor m1.large       m1.large       3     4       40           0                 40            8,192
 flavor m1.x-large     m1.x-large     4     8       80           0                 80            16,384
+flavor hadoop.small   hadoop.small   5     2       20           4,300             4,320         18,432
+flavor hadoop.medium  hadoop.medium  6     4       40           8,600             8,640         36,864
+flavor hadoop.large   hadoop.large   7     10      100          21,500            21,600        92,160
 
 
 *** Keywords ***
