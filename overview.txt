@@ -23,12 +23,11 @@ Floating IPs from Nova
     Should Be Equal    ${floating_ips_summary}    ${floating_ips_from_nova}
 RAM Usage Verify from Nova
     [Tags]    critical
-    ${instances}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[0].getElementsByTagName("span")
     ${mem_summary}    Get Text    dom=document.getElementsByClassName("d3_quota_bar")[2].getElementsByTagName("span")
-    ${instances}     Evaluate    ${instances}   
     ${mem_summary}    Fetch From Left    ${mem_summary}    ${SPACE}
+    ${mem_from_nova}    totalRAMUserInGB
+    ${mem_summary}    Get Substring    ${mem_summary}   0     -2
     ${mem_summary}    Evaluate    ${mem_summary}
-    ${mem_from_nova}    totalRAMUserInGB 
     Should Be Equal    ${mem_summary}    ${mem_from_nova}
 Instance Usage Verify from Nova
     [Tags]    critical
