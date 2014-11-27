@@ -1,7 +1,6 @@
-Documentation   Check that the flavor list contains the right texts
-
 *** Settings ***
 Suite Setup    Login to OpenStack And Start Creating Instances
+Documentation   Check that the flavor list contains the right texts
 Suite Teardown    Close All Browsers
 Resource    ./common/assets/secrets.txt
 Resource    ./common/assets/resource.txt
@@ -12,7 +11,7 @@ Library    Functions
 Library    Collections
 
 *** Variables ***
-${flavorsCount}    5
+${flavorsCount}    8
 
 *** Test Cases ***
 Flavor count equals 5
